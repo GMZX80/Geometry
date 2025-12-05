@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometric Sequence Optimizer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 { color: #2c3e50; }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .equation-box {
+            background: #eef2f5;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .input-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .sequence-block {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            flex: 1;
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        input[type="number"]:focus { border-color: #3498db; outline: none; }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover { background-color: #2980b9; }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .error { color: #e74c3c; }
+        .success { color: #27ae60; }
+        .box-placeholder {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #333;
+            text-align: center;
+            line-height: 30px;
+            background: #fff;
+            margin: 0 2px;
+        }
+        .solution-reveal {
+            display: none;
+            margin-top: 20px;
+            border-top: 2px dashed #ccc;
+            padding-top: 20px;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Geometric Sequence Challenge</h1>
+        <p>
+            You have the integers <strong>2, 3, 4, 5, 6, 7</strong>. Place each integer exactly once into the boxes below to define two geometric sequences.
+            Your goal is to maximize the difference \( D \) between their sums to infinity.
+        </p>
+        
+        <div class="equation-box">
+            Goal: Maximize \( D = | S_{\infty}(u) - S_{\infty}(v) | \)
+        </div>
+
+        <div class="input-group">
+            <div class="sequence-block">
+                <h3>Sequence \( u \) (Maximize Sum)</h3>
+                <p>
+                    \( u_1 = \) <input type="number" id="u1" min="2" max="7">
+                </p>
+                <p>
+                    \( u_{idx} = \) <input type="number" id="u_idx" min="2" max="7" placeholder="idx"> 
+                    &nbsp;&rarr;&nbsp; 
+                    \( u_{val} = \) <input type="number" id="u_val" min="2" max="7">
+                </p>
+            </div>
+
+            <div class="sequence-block">
+                <h3>Sequence \( v \) (Minimize Sum)</h3>
+                <p>
+                    \( v_1 = \) <input type="number" id="v1" min="2" max="7">
+                </p>
+                <p>
+                    \( v_{idx} = \) <input type="number" id="v_idx" min="2" max="7" placeholder="idx"> 
+                    &nbsp;&rarr;&nbsp; 
+                    \( v_{val} = \) <input type="number" id="v_val" min="2" max="7">
+                </p>
+            </div>
+        </div>
+
+        <button onclick="calculateDifference()">Calculate Difference</button>
+        <button onclick="toggleSolution()" style="background-color: #95a5a6; margin-left: 10px;">Show/Hide Solution</button>
+
+        <div id="result"></div>
+    </div>
+
+    <div class="container solution-reveal" id="solutionSection">
+        <h2>The Optimal Solution</h2>
+        <p>To maximize difference, we need one HUGE sum and one TINY sum.</p>
+        
+        <h3>1. The Huge Sum (Sequence u)</h3>
+        <p>We use the largest numbers: <strong>5, 6, 7</strong>.</p>
+        <ul>
+            <li>Start with a high number: \( u_1 = 6 \)</li>
+            <li>Use the highest number as the index to stretch the sequence (bringing ratio closer to 1): Index = 7</li>
+            <li>The value at that index should be close to the start: \( u_7 = 5 \)</li>
+        </ul>
+        <p>
+            Ratio \( r = (5/6)^{1/6} \approx 0.97 \)<br>
+            Sum \( \approx 201.53 \)
+        </p>
+
+        <h3>2. The Tiny Sum (Sequence v)</h3>
+        <p>We use the remaining small numbers: <strong>2, 3, 4</strong>.</p>
+        <ul>
+            <li>Start with a relatively small number (that allows for a smaller one later): \( v_1 = 4 \)</li>
+            <li>We want the sequence to drop fast, so we keep the index gap small. We use 3 as the index.</li>
+            <li>Value at index 3 is the smallest number: \( v_3 = 2 \)</li>
+        </ul>
+        <p>
+            Ratio \( r = (2/4)^{1/2} = \sqrt{0.5} \approx 0.707 \)<br>
+            Sum \( \approx 13.66 \)
+        </p>
+
+        <div class="equation-box">
+            <strong>Maximum D = 201.53 - 13.66 = 187.9 (4 s.f.)</strong>
+        </div>
+    </div>
+
+    <script>
+        function calculateDifference() {
+            // Get values
+            const u1 = parseFloat(document.getElementById('u1').value);
+            const u_idx = parseFloat(document.getElementById('u_idx').value);
+            const u_val = parseFloat(document.getElementById('u_val').value);
+            
+            const v1 = parseFloat(document.getElementById('v1').value);
+            const v_idx = parseFloat(document.getElementById('v_idx').value);
+            const v_val = parseFloat(document.getElementById('v_val').value);
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = "";
+
+            // Validation: Check if all inputs are numbers
+            const inputs = [u1, u_idx, u_val, v1, v_idx, v_val];
+            if (inputs.some(isNaN)) {
+                resultDiv.innerHTML = "<span class='error'>Please fill in all boxes.</span>";
+                return;
+            }
+
+            // Validation: Check if values 2-7 are used exactly once
+            const sortedInputs = [...inputs].sort((a, b) => a - b);
+            const expected = [2, 3, 4, 5, 6, 7];
+            const isPermutation = JSON.stringify(sortedInputs) === JSON.stringify(expected);
+
+            if (!isPermutation) {
+                resultDiv.innerHTML = "<span class='error'>You must use integers 2, 3, 4, 5, 6, 7 exactly once each.</span>";
+                return;
+            }
+
+            // Validation: Check strict decrease (0 < r < 1)
+            // r = (val/start)^(1/(idx-1))
+            // if val >= start, r >= 1, sum diverges.
+            if (u_val >= u1) {
+                resultDiv.innerHTML = "<span class='error'>Error in Sequence u: The second value must be smaller than u1 for the sequence to converge.</span>";
+                return;
+            }
+            if (v_val >= v1) {
+                resultDiv.innerHTML = "<span class='error'>Error in Sequence v: The second value must be smaller than v1 for the sequence to converge.</span>";
+                return;
+            }
+            
+            if (u_idx <= 1 || v_idx <= 1) {
+                 resultDiv.innerHTML = "<span class='error'>Index must be greater than 1.</span>";
+                 return;
+            }
+
+            // Calculate Ratios
+            const r_u = Math.pow((u_val / u1), 1 / (u_idx - 1));
+            const r_v = Math.pow((v_val / v1), 1 / (v_idx - 1));
+
+            // Calculate Sums to Infinity: S = a / (1 - r)
+            const S_u = u1 / (1 - r_u);
+            const S_v = v1 / (1 - r_v);
+
+            const D = Math.abs(S_u - S_v);
+
+            resultDiv.innerHTML = `
+                <div class="equation-box">
+                    Sequence u: \( r \approx ${r_u.toFixed(4)} \), \( S_{\\infty} \approx ${S_u.toFixed(2)} \)<br>
+                    Sequence v: \( r \approx ${r_v.toFixed(4)} \), \( S_{\\infty} \approx ${S_v.toFixed(2)} \)<br>
+                    <hr>
+                    <strong>Difference D = ${D.toPrecision(4)}</strong>
+                </div>
+            `;
+            
+            // Re-render mathjax for dynamic content
+            MathJax.typesetPromise();
+        }
+
+        function toggleSolution() {
+            const sol = document.getElementById('solutionSection');
+            if (sol.style.display === "block") {
+                sol.style.display = "none";
+            } else {
+                sol.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

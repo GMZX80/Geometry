@@ -263,7 +263,7 @@
             <strong>Sequence U:</strong> \( r = (5/6)^{1/6} \approx 0.97 \). Sum \(\approx 200.47\)<br>
             <strong>Sequence V:</strong> \( r = (2/4)^{1/2} \approx 0.707 \). Sum \(\approx 13.66\)<br>
             <hr>
-            <strong>Difference \(D = 200.47 - 13.66 = 186.8\) (to 4 s.f.)</strong>
+            <strong>Difference \(D = 200.47 - 13.66 = 186.81\)</strong>
         </div>
     </div>
 
@@ -332,8 +332,9 @@
         msg += `Sum = ${sum_v.toFixed(2)}</p>`;
 
         msg += `<hr>`;
-        msg += `<h3 style="color:var(--primary); text-align:center;">Difference D = ${diff.toPrecision(4)}</h3>`;
+        msg += `<h3 style="color:var(--primary); text-align:center;">Difference D = ${diff.toPrecision(5)}</h3>`;
         
+        // Success condition checks for approx 186.81
         if (diff > 186 && diff < 187) {
             msg += `<p style="text-align:center; color: green; font-weight:bold;">🎉 Outstanding! You found the maximum value.</p>`;
         } else if (diff > 100) {

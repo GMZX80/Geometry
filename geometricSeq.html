@@ -252,7 +252,7 @@
         <h3>Step 3: Optimizing Sequence V (The Tiny Sum)</h3>
         <p>We need \(S_v = \frac{a}{1-r}\) to be tiny.</p>
         <ol>
-            <li><strong>Minimize \(a\):</strong> We want a small start. Let's try <strong>4</strong>. (Why not 2? Because we need the sequence to drop to something <em>smaller</em> than the start to converge).</li>
+            <li><strong>Minimize \(a\):</strong> We want a small start. Let's try <strong>4</strong>. (Why not 2? Because we must use 2, 3, and 4 exactly once, and we need the later term to be smaller than the start. If we used 2 as the start, there would be no smaller number left for the later term.)</li>
             <li><strong>Minimize \(r\):</strong> We want the sequence to crash quickly. We set the target value to our smallest number, <strong>2</strong>.</li>
             <li><strong>Keep it short:</strong> We use the smallest remaining index, <strong>3</strong>, so the drop happens fast.</li>
         </ol>
@@ -363,3 +363,4 @@
 
 </body>
 </html>
+

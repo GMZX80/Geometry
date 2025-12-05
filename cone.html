@@ -95,13 +95,17 @@
 
     <div class="step-container">
         <h2>Step 1: Understanding the Geometry</h2>
-        <p>A <strong>frustum</strong> is the portion of a cone that remains after its upper part has been cut off. The formula for the volume of a frustum is:</p>
+        <p>A <strong>frustum</strong> is the technical name for a cone with the top sliced off parallel to the base—it looks like a bucket. The line segment runs from the point \( P_1(1, 2) \) to \( P_2(12, a) \). When this line is rotated \( 360^{\circ} \) around an axis, the line traces out the sloping side of the frustum.</p>
+        
+        <p>The general formula for the volume of a frustum is:</p>
         
         <div class="formula-box">
             $$V = \frac{1}{3} \pi h (R^2 + r^2 + Rr)$$
         </div>
         
-        <p>The line segment connects \( P_1(1, 2) \) and \( P_2(12, a) \). Here is a visualization of the segment on the XY plane:</p>
+        <p>Here, \( h \) is the **height** (measured along the axis of rotation), and \( R \) and \( r \) are the **radii** (measured perpendicular to the axis) of the two circular bases. </p>
+
+        <p>Here is a visualization of the segment on the XY plane:</p>
 
         <div class="diagram-container">
             <svg width="400" height="300" viewBox="-20 -20 220 180">
@@ -137,13 +141,17 @@
 
     <div class="step-container">
         <h2>Step 2: Rotation about the x-axis (\( V_x \))</h2>
-        <p>When rotating around the x-axis, the object formed is a frustum lying on its side.</p>
+        <p>When rotating around the **\(x\)-axis**, the $x$-axis acts as the axis of symmetry, resulting in a frustum lying on its side.</p>
+        
         <ul>
-            <li><strong>Height (\( h_x \)):</strong> \( 12 - 1 = 11 \)</li>
-            <li><strong>Radii (\( r_x, R_x \)):</strong> \( 2 \) and \( a \) (vertical distances from x-axis)</li>
+            <li><strong>Height (\( h_x \)):</strong> The height is the distance along the $x$-axis (the difference in $x$-coordinates): \( h_x = 12 - 1 = 11 \).</li>
+            <li><strong>Radii (\( r_x, R_x \)):</strong> The radii are the distances perpendicular to the $x$-axis, which are the **$y$-coordinates** of the points: \( r_x = 2 \) and \( R_x = a \).</li>
         </ul>
         
+        <p>Substituting these into the volume formula gives:</p>
+        
         <div class="formula-box">
+            $$V_x = \frac{1}{3} \pi (11) (a^2 + 2^2 + 2a)$$
             $$V_x = \frac{11\pi}{3} (a^2 + 2a + 4)$$
         </div>
 
@@ -182,13 +190,17 @@
 
     <div class="step-container">
         <h2>Step 3: Rotation about the y-axis (\( V_y \))</h2>
-        <p>When rotating around the y-axis, the object is an upright bucket shape.</p>
+        <p>When rotating around the **\(y\)-axis**, the $y$-axis acts as the axis of symmetry, resulting in an upright bucket shape.</p>
+        
         <ul>
-            <li><strong>Height (\( h_y \)):</strong> \( a - 2 \)</li>
-            <li><strong>Radii (\( r_y, R_y \)):</strong> \( 1 \) and \( 12 \) (horizontal distances from y-axis)</li>
+            <li><strong>Height (\( h_y \)):</strong> The height is the distance along the $y$-axis (the difference in $y$-coordinates). Since \( a > 2 \): \( h_y = a - 2 \).</li>
+            <li><strong>Radii (\( r_y, R_y \)):</strong> The radii are the distances perpendicular to the $y$-axis, which are the **$x$-coordinates** of the points: \( r_y = 1 \) and \( R_y = 12 \).</li>
         </ul>
 
+        <p>Substituting these into the volume formula gives:</p>
+        
         <div class="formula-box">
+            $$V_y = \frac{1}{3} \pi (a - 2) (12^2 + 1^2 + 12 \cdot 1)$$
             $$V_y = \frac{157\pi}{3} (a - 2)$$
         </div>
 
@@ -227,13 +239,21 @@
 
     <div class="step-container">
         <h2>Step 4 & 5: Equation & Solution</h2>
-        <p>We set the absolute difference of the volumes to 50: \(|V_x - V_y| = 50\).</p>
-        <p>This results in two quadratic equations. We calculate the sum of roots for both cases:</p>
+        <p>The problem states the **difference** in volumes is 50, meaning $|V_x - V_y| = 50$. This requirement splits the problem into two distinct scenarios: \( V_x - V_y = 50 \) (Case A) and \( V_y - V_x = 50 \) (Case B).</p>
+        
+        <p>When we simplify and rearrange both scenarios, we get two separate **quadratic equations**, both sharing the form \( 11a^2 - 135a + C = 0 \).</p>
+        
+        <p>To find the sum of all possible \( a \) values, we use the property of quadratic roots: **For any quadratic equation \( Ax^2 + Bx + C = 0 \), the sum of the roots is \( \frac{-B}{A} \).**</p>
+        
+        <p>Since both equations have $A=11$ and $B=-135$:</p>
+        
         <ul>
-            <li><strong>Sum for Case A:</strong> \( \frac{135}{11} \)</li>
-            <li><strong>Sum for Case B:</strong> \( \frac{135}{11} \)</li>
+            <li><strong>Sum for Case A:</strong> \( S_A = \frac{-(-135)}{11} = \frac{135}{11} \)</li>
+            <li><strong>Sum for Case B:</strong> \( S_B = \frac{-(-135)}{11} = \frac{135}{11} \)</li>
         </ul>
-        <p>Adding these together gives the total sum:</p>
+        
+        <p>Adding these together gives the total sum of the four possible values for \( a \):</p>
+        
         <div class="formula-box">
             $$\text{Total Sum} = \frac{135}{11} + \frac{135}{11} = \frac{270}{11}$$
         </div>

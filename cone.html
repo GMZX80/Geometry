@@ -1,9 +1,9 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Spinning Line</title>
+    <title>Ritangle Question 11: The Spinning Line</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- MathJax for beautiful math equations -->
@@ -17,9 +17,9 @@
         }
         .canvas-container {
             position: relative;
-            height: 400px; /* Taller for 3D */
+            height: 400px;
             width: 100%;
-            background: #0f172a; /* Dark background for 3D */
+            background: #0f172a;
             border: 1px solid #e2e8f0;
             border-radius: 0.5rem;
             overflow: hidden;
@@ -44,82 +44,115 @@
             background: #cbd5e1;
             border-radius: 2px;
         }
-        /* Custom toggle switch */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #3b82f6;
+        /* Custom scrollbar for aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #3b82f6;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
 
     <!-- Header -->
-    <header class="bg-blue-600 text-white p-6 shadow-lg">
+    <header class="bg-slate-900 text-white p-8 shadow-lg">
         <div class="max-w-4xl mx-auto">
-            <h1 class="text-3xl font-bold mb-2">The Spinning Line Problem</h1>
-            <p class="text-blue-100">Ritangle Question 11 - Stage 1 Walkthrough</p>
+            <h1 class="text-4xl font-bold mb-2 tracking-tight">The Spinning Line Problem</h1>
+            <p class="text-blue-200 text-lg">Ritangle Question 11 - Stage 1 Walkthrough</p>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto p-6 space-y-8">
+    <main class="max-w-4xl mx-auto p-6 space-y-10">
 
-        <!-- Introduction -->
+        <!-- Problem Statement Section -->
+        <section class="bg-white p-8 rounded-xl shadow-md border-l-8 border-slate-800">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-gray-900">The Challenge</h2>
+                <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded font-mono uppercase tracking-wide">Original Text</span>
+            </div>
+            <div class="prose max-w-none text-lg text-gray-700 space-y-4 font-serif">
+                <p>
+                    The line segment with end points \((1, 2)\) and \((12, a)\) (where \(a > 2\)) is rotated through \(360^\circ\) about the \(x\)-axis to create a frustum of a cone.
+                </p>
+                <p>
+                    The same line segment is rotated through \(360^\circ\) about the \(y\)-axis to create another frustum of a cone.
+                </p>
+                <p>
+                    If the difference in volumes of these two frustums is 50 cubic units, find the sum (to 3d.p.) of the possible values of \(a\).
+                </p>
+            </div>
+        </section>
+
+        <!-- Interactive Visualization -->
         <section class="bg-white p-6 rounded-xl shadow-sm">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">1. Visualizing the 3D Frustums</h2>
-            <p class="mb-4">
-                Drag the slider to change <strong>a</strong>. Toggle the switch to spin the line around the X or Y axis.
-            </p>
-            <p class="mb-6 text-sm text-gray-600 bg-gray-100 p-3 rounded">
-                <strong>Interaction:</strong> Click and drag on the black window to rotate the camera view!
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">1. Visualizing the Transformation</h2>
+                <div class="text-sm bg-blue-50 text-blue-700 px-3 py-1 rounded-full">Interactive 3D Model</div>
+            </div>
+            
+            <p class="mb-6 text-gray-600">
+                Drag the slider to change <strong>a</strong>. Use the buttons to switch the axis of rotation. <br>
+                <span class="text-xs text-gray-500"><em>(Click and drag the black window to rotate the camera view!)</em></span>
             </p>
 
-            <!-- Interactive Visualization -->
             <div class="grid md:grid-cols-3 gap-6">
                 <!-- Controls & Stats -->
                 <div class="md:col-span-1 space-y-6">
                     <!-- Value Slider -->
-                    <label class="block">
-                        <span class="text-gray-700 font-bold">Value of a: <span id="val-a" class="text-blue-600">3.00</span></span>
-                        <input type="range" id="slider-a" min="2.1" max="15" step="0.1" value="3" class="w-full mt-2">
-                    </label>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <label class="block">
+                            <span class="text-gray-700 font-bold flex justify-between">
+                                Variable \(a\)
+                                <span id="val-a" class="text-blue-600 font-mono">3.00</span>
+                            </span>
+                            <input type="range" id="slider-a" min="2.1" max="15" step="0.1" value="3" class="w-full mt-3">
+                        </label>
+                    </div>
 
                     <!-- Axis Toggle -->
                     <div class="flex flex-col gap-2">
-                        <span class="font-bold text-gray-700">Rotation Axis:</span>
+                        <span class="font-bold text-gray-700 text-sm uppercase tracking-wide">Rotation Axis</span>
                         <div class="flex gap-2">
-                            <button id="btn-x" class="flex-1 bg-blue-600 text-white py-2 px-4 rounded shadow hover:bg-blue-700 transition" onclick="setAxis('x')">X-Axis</button>
-                            <button id="btn-y" class="flex-1 bg-white text-gray-700 border border-gray-300 py-2 px-4 rounded shadow hover:bg-gray-50 transition" onclick="setAxis('y')">Y-Axis</button>
+                            <button id="btn-x" class="flex-1 bg-blue-600 text-white py-2 px-4 rounded shadow hover:bg-blue-700 transition font-medium" onclick="setAxis('x')">X-Axis</button>
+                            <button id="btn-y" class="flex-1 bg-white text-gray-700 border border-gray-300 py-2 px-4 rounded shadow hover:bg-gray-50 transition font-medium" onclick="setAxis('y')">Y-Axis</button>
                         </div>
                     </div>
 
                     <!-- Stats Box -->
-                    <div class="bg-blue-50 p-4 rounded-lg space-y-2 text-sm">
-                        <div class="flex justify-between">
-                            <span>Vol (X-axis):</span>
-                            <span id="vol-x" class="font-mono font-bold">---</span>
+                    <div class="bg-slate-800 text-white p-4 rounded-lg space-y-3 text-sm shadow-inner">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-400">Vol (X-axis):</span>
+                            <span id="vol-x" class="font-mono font-bold text-blue-300">---</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span>Vol (Y-axis):</span>
-                            <span id="vol-y" class="font-mono font-bold">---</span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-400">Vol (Y-axis):</span>
+                            <span id="vol-y" class="font-mono font-bold text-purple-300">---</span>
                         </div>
-                        <div class="flex justify-between border-t border-blue-200 pt-2 text-base">
-                            <span>Difference:</span>
-                            <span id="vol-diff" class="font-mono font-bold text-red-600">---</span>
+                        <div class="border-t border-slate-600 pt-2 mt-2">
+                            <div class="flex justify-between items-center text-base">
+                                <span>Difference:</span>
+                                <span id="vol-diff" class="font-mono font-bold text-red-400">---</span>
+                            </div>
+                            <div class="text-right text-xs text-slate-500 mt-1">Target: 50.000</div>
                         </div>
-                        <p class="text-xs text-gray-500 mt-1 text-center">Target difference is 50</p>
                     </div>
                 </div>
 
                 <!-- 3D Canvas -->
-                <div class="md:col-span-2 canvas-container" id="canvas-container">
+                <div class="md:col-span-2 canvas-container shadow-inner" id="canvas-container">
                     <!-- Three.js will inject canvas here -->
-                    <div class="absolute top-2 left-2 text-white text-xs bg-black/50 p-2 rounded pointer-events-none">
-                        <p>Red Line: X-Axis</p>
-                        <p>Green Line: Y-Axis</p>
-                        <p>Blue Shape: The Frustum</p>
+                    <div class="absolute top-3 left-3 text-white/80 text-xs bg-black/60 p-3 rounded backdrop-blur-sm pointer-events-none z-10">
+                        <div class="flex items-center gap-2"><div class="w-3 h-0.5 bg-red-500"></div> X-Axis</div>
+                        <div class="flex items-center gap-2 mt-1"><div class="w-3 h-0.5 bg-green-500"></div> Y-Axis</div>
+                        <div class="flex items-center gap-2 mt-1"><div class="w-3 h-3 bg-blue-500/50 border border-blue-400"></div> Frustum</div>
                     </div>
                 </div>
             </div>
@@ -128,125 +161,138 @@
         <!-- Step 2: The Math -->
         <section class="bg-white p-6 rounded-xl shadow-sm">
             <h2 class="text-2xl font-bold text-gray-900 mb-4">2. The Volume Formula</h2>
-            <div class="flex items-start gap-4">
-                <div class="bg-yellow-100 p-3 rounded-full text-2xl">💡</div>
+            <div class="flex items-start gap-4 bg-yellow-50 p-4 rounded-lg border border-yellow-100">
+                <div class="text-3xl">📐</div>
                 <div>
-                    <p class="mb-2">A <strong>Frustum</strong> is a slice of a cone. The volume formula is:</p>
-                    <div class="bg-gray-800 text-white p-4 rounded-lg text-center my-3 overflow-x-auto">
+                    <p class="mb-2 text-gray-800">The problem relies on a standard formula. A <strong>Frustum</strong> is simply a cone with the top sliced off. Its volume is given by:</p>
+                    <div class="my-3 overflow-x-auto">
                         \[ V = \frac{1}{3} \pi h (R^2 + Rr + r^2) \]
                     </div>
-                    <ul class="list-disc pl-5 space-y-1 text-sm text-gray-600">
-                        <li>\( h \) = Height of the frustum (distance between circles)</li>
-                        <li>\( R \) = Radius of the big circle</li>
-                        <li>\( r \) = Radius of the small circle</li>
+                    <ul class="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm text-gray-600 mt-2">
+                        <li class="bg-white px-2 py-1 rounded border">\( h \): Height</li>
+                        <li class="bg-white px-2 py-1 rounded border">\( R \): Large Radius</li>
+                        <li class="bg-white px-2 py-1 rounded border">\( r \): Small Radius</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Step 3: X-Axis Rotation -->
-        <section class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Step 3: Rotation about the X-axis</h3>
-            <p class="mb-4">When we spin around the x-axis, the "height" is along the x-axis, and the "radii" are the y-values (height of the points).</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-green-50 p-4 rounded">
-                    <h4 class="font-bold text-green-800 mb-2">Parameters</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><strong>Height (\(h\)):</strong> Change in x = \(12 - 1 = 11\)</li>
-                        <li><strong>Small Radius (\(r\)):</strong> \(y_1 = 2\)</li>
-                        <li><strong>Big Radius (\(R\)):</strong> \(y_2 = a\)</li>
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Step 3: X-Axis Rotation -->
+            <section class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">3. Rotating about X</h3>
+                <p class="text-sm text-gray-600 mb-4">The "height" lies along the horizontal x-axis. The "radii" are the vertical y-values.</p>
+                
+                <div class="bg-blue-50 p-3 rounded mb-4 text-sm">
+                    <strong>Parameters:</strong>
+                    <ul class="mt-2 space-y-1 list-disc list-inside">
+                        <li>Height \(h = 12 - 1 = 11\)</li>
+                        <li>Small Radius \(r = 2\)</li>
+                        <li>Big Radius \(R = a\)</li>
                     </ul>
                 </div>
-                <div class="bg-white border p-4 rounded">
-                    <h4 class="font-bold text-gray-800 mb-2">Calculation (\(V_x\))</h4>
-                    <p class="text-sm">
-                        \[ V_x = \frac{1}{3} \pi (11) (a^2 + 2a + 2^2) \]
-                        \[ V_x = \frac{11\pi}{3} (a^2 + 2a + 4) \]
-                    </p>
+                <div class="text-sm">
+                    \[ V_x = \frac{1}{3} \pi (11) (a^2 + 2a + 2^2) \]
+                    <div class="font-bold mt-2 text-blue-800">\[ V_x = \frac{11\pi}{3} (a^2 + 2a + 4) \]</div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Step 4: Y-Axis Rotation -->
-        <section class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Step 4: Rotation about the Y-axis</h3>
-            <p class="mb-4">When we spin around the y-axis, everything flips! The "height" is along the y-axis, and the "radii" are the x-values (distance from the axis).</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-purple-50 p-4 rounded">
-                    <h4 class="font-bold text-purple-800 mb-2">Parameters</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><strong>Height (\(h\)):</strong> Change in y = \(a - 2\)</li>
-                        <li><strong>Small Radius (\(r\)):</strong> \(x_1 = 1\)</li>
-                        <li><strong>Big Radius (\(R\)):</strong> \(x_2 = 12\)</li>
+            <!-- Step 4: Y-Axis Rotation -->
+            <section class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-purple-500">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">4. Rotating about Y</h3>
+                <p class="text-sm text-gray-600 mb-4">The "height" lies along the vertical y-axis. The "radii" are the horizontal x-values.</p>
+                
+                <div class="bg-purple-50 p-3 rounded mb-4 text-sm">
+                    <strong>Parameters:</strong>
+                    <ul class="mt-2 space-y-1 list-disc list-inside">
+                        <li>Height \(h = a - 2\)</li>
+                        <li>Small Radius \(r = 1\)</li>
+                        <li>Big Radius \(R = 12\)</li>
                     </ul>
                 </div>
-                <div class="bg-white border p-4 rounded">
-                    <h4 class="font-bold text-gray-800 mb-2">Calculation (\(V_y\))</h4>
-                    <p class="text-sm">
-                        \[ V_y = \frac{1}{3} \pi (a-2) (12^2 + 12(1) + 1^2) \]
-                        \[ V_y = \frac{1}{3} \pi (a-2) (157) \]
-                        \[ V_y = \frac{157\pi}{3} (a-2) \]
-                    </p>
+                <div class="text-sm">
+                    \[ V_y = \frac{1}{3} \pi (a-2) (12^2 + 12(1) + 1^2) \]
+                    <div class="font-bold mt-2 text-purple-800">\[ V_y = \frac{157\pi}{3} (a-2) \]</div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
         <!-- Step 5: Solving -->
         <section class="bg-white p-6 rounded-xl shadow-sm">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Step 5: The Difference Equation</h2>
-            <p class="mb-4">The problem states the difference is 50. Since we don't know which is bigger, we use the absolute value:</p>
-            <div class="text-center text-lg font-bold my-4">
-                \( | V_x - V_y | = 50 \)
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">5. The Calculation</h2>
+            <p class="mb-4 text-gray-600">We solve for \( | V_x - V_y | = 50 \). Removing common factors and expanding gives us a quadratic equation:</p>
+            
+            <div class="bg-gray-100 p-4 rounded text-center font-mono text-sm md:text-base mb-6">
+                \( 11a^2 - 135a + 358 = \pm \frac{150}{\pi} \)
+            </div>
+
+            <p class="mb-4">This yields two equations. Since we need the sum of all possible values of \(a\), we use the property that for \(Ax^2 + Bx + C = 0\), the Sum of Roots = \(-B/A\).</p>
+
+            <div class="grid grid-cols-2 gap-4 text-center">
+                <div class="p-4 bg-gray-50 rounded border">
+                    <div class="text-xs text-gray-500 uppercase">Case 1 (+50)</div>
+                    <div class="font-bold text-lg mt-1">Sum = 135/11</div>
+                </div>
+                <div class="p-4 bg-gray-50 rounded border">
+                    <div class="text-xs text-gray-500 uppercase">Case 2 (-50)</div>
+                    <div class="font-bold text-lg mt-1">Sum = 135/11</div>
+                </div>
             </div>
             
-            <p>Let's remove the common factor \( \frac{\pi}{3} \) to make it cleaner. Let \( K = \frac{150}{\pi} \).</p>
-            <p class="mt-2 text-center text-sm bg-gray-100 p-2 rounded">
-                \( 11(a^2 + 2a + 4) - 157(a - 2) = \pm K \)
-            </p>
-            
-            <p class="mt-4">Expanding and simplifying the left side:</p>
-            <p class="pl-4 border-l-2 border-gray-300 ml-4 text-sm text-gray-600">
-                \( 11a^2 + 22a + 44 - 157a + 314 \) <br>
-                \( = 11a^2 - 135a + 358 \)
-            </p>
-
-            <p class="mt-4">This gives us two quadratic equations to solve:</p>
-            <div class="grid md:grid-cols-2 gap-6 mt-4">
-                <div class="border p-4 rounded bg-gray-50">
-                    <h4 class="font-bold mb-2">Case 1 (+50)</h4>
-                    <p class="text-sm">\( 11a^2 - 135a + 358 = \frac{150}{\pi} \)</p>
-                    <p class="text-xs text-gray-500 mt-2">\( 11a^2 - 135a + (358 - \frac{150}{\pi}) = 0 \)</p>
-                </div>
-                <div class="border p-4 rounded bg-gray-50">
-                    <h4 class="font-bold mb-2">Case 2 (-50)</h4>
-                    <p class="text-sm">\( 11a^2 - 135a + 358 = -\frac{150}{\pi} \)</p>
-                    <p class="text-xs text-gray-500 mt-2">\( 11a^2 - 135a + (358 + \frac{150}{\pi}) = 0 \)</p>
-                </div>
+            <div class="mt-6 bg-slate-900 text-white p-6 rounded-lg text-center">
+                <p class="text-slate-400 text-sm mb-2">Total Sum = \(\frac{270}{11}\)</p>
+                <div class="text-5xl font-extrabold text-green-400">24.545</div>
             </div>
         </section>
 
-        <!-- Step 6: Final Calculation -->
-        <section class="bg-blue-600 text-white p-6 rounded-xl shadow-lg">
-            <h2 class="text-2xl font-bold mb-4">Step 6: The Sum of Values</h2>
-            <p class="mb-4">
-                We need the sum of all valid \(a\). For a quadratic \(Ax^2 + Bx + C = 0\), the sum of roots is \( -B/A \).
-            </p>
-            <div class="bg-blue-700 p-4 rounded-lg mb-4">
-                <p><strong>Check:</strong> Are the roots real and > 2?</p>
-                <p class="text-sm text-blue-200 mt-1">Yes! By calculating the discriminant \(B^2 - 4AC\), we find both equations have 2 real roots, and because the vertex of the parabola is at \(a \approx 6.13\), all 4 intersection points occur where \(a > 2\).</p>
-            </div>
+        <!-- NEW SECTION: Going Deeper -->
+        <section class="bg-gradient-to-br from-indigo-600 to-violet-700 text-white p-8 rounded-xl shadow-lg relative overflow-hidden">
+            <!-- Decorative circle -->
+            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-2xl"></div>
+
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+                Going Deeper: Transformations & Matrices
+            </h2>
             
-            <p>
-                Sum for Case 1: \( \frac{135}{11} \) <br>
-                Sum for Case 2: \( \frac{135}{11} \)
-            </p>
-            
-            <div class="mt-6 text-center">
-                <p class="text-xl">Total Sum = \( \frac{270}{11} \)</p>
-                <p class="text-4xl font-extrabold mt-2 text-yellow-300">24.545</p>
-                <p class="text-sm opacity-75 mt-1">(to 3 decimal places)</p>
+            <div class="space-y-4 text-indigo-100">
+                <p>
+                    This problem is mathematically straightforward because we just swapped specific numbers in a formula. However, conceptually, what we are doing is a <strong>Geometric Transformation</strong>.
+                </p>
+                <p>
+                    In advanced mathematics (and in the code running the 3D simulation above!), we don't just "swap x and y". We use <strong>Matrices</strong> to transform space itself.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mt-6 items-center">
+                    <div class="bg-white/10 p-5 rounded-lg backdrop-blur-sm border border-white/20">
+                        <h4 class="font-bold text-white mb-2">The Reflection Matrix</h4>
+                        <p class="text-sm mb-3">
+                            Swapping the X and Y axes is mathematically equivalent to reflecting the entire world across the line \(y=x\).
+                        </p>
+                        <div class="font-mono bg-black/30 p-3 rounded text-center">
+                            \[ 
+                            \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} 
+                            \begin{pmatrix} x \\ y \end{pmatrix} 
+                            = 
+                            \begin{pmatrix} y \\ x \end{pmatrix} 
+                            \]
+                        </div>
+                    </div>
+                    
+                    <div class="text-sm">
+                        <p class="mb-2">
+                            <strong>Why does this matter?</strong>
+                        </p>
+                        <p>
+                            In computer graphics (like video games), we perform millions of these matrix multiplications per second. 
+                        </p>
+                        <p class="mt-2">
+                            Instead of writing separate code for "rotate X" and "rotate Y", a game engine simply multiplies the object's coordinates by a <strong>Rotation Matrix</strong> to place it anywhere in the universe!
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -268,11 +314,11 @@
         function setAxis(axis) {
             currentAxis = axis;
             document.getElementById('btn-x').className = axis === 'x' 
-                ? "flex-1 bg-blue-600 text-white py-2 px-4 rounded shadow hover:bg-blue-700 transition"
-                : "flex-1 bg-white text-gray-700 border border-gray-300 py-2 px-4 rounded shadow hover:bg-gray-50 transition";
+                ? "flex-1 bg-blue-600 text-white py-2 px-4 rounded shadow hover:bg-blue-700 transition font-medium"
+                : "flex-1 bg-white text-gray-700 border border-gray-300 py-2 px-4 rounded shadow hover:bg-gray-50 transition font-medium";
             document.getElementById('btn-y').className = axis === 'y' 
-                ? "flex-1 bg-purple-600 text-white py-2 px-4 rounded shadow hover:bg-purple-700 transition"
-                : "flex-1 bg-white text-gray-700 border border-gray-300 py-2 px-4 rounded shadow hover:bg-gray-50 transition";
+                ? "flex-1 bg-purple-600 text-white py-2 px-4 rounded shadow hover:bg-purple-700 transition font-medium"
+                : "flex-1 bg-white text-gray-700 border border-gray-300 py-2 px-4 rounded shadow hover:bg-gray-50 transition font-medium";
             
             update3D();
         }
@@ -287,7 +333,7 @@
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setClearColor(0x0f172a, 1);
+        renderer.setClearColor(0x0f172a, 1); // Dark blue-slate background
         container.appendChild(renderer.domElement);
 
         // Lighting
@@ -383,15 +429,7 @@
                 // X-Axis Rotation
                 // Height = 11 (from x=1 to 12)
                 // Radius at x=1 is y=2. Radius at x=12 is y=a.
-                // CylinderGeometry(radiusTop, radiusBottom, height, segments)
-                // Note: Three.js Cylinder is Y-aligned by default.
-                // We need radiusTop to correspond to x=12 (value a) and radiusBottom to x=1 (value 2)
-                // IF we rotate it -90deg around Z.
-                
                 geometry = new THREE.CylinderGeometry(2, a, 11, 32, 1, false); 
-                // Wait, Cylinder centers at (0,0,0). 
-                // We want it from x=1 to x=12.
-                // Center x = (1+12)/2 = 6.5.
                 
                 frustumMesh = new THREE.Mesh(geometry, materialX);
                 frustumMesh.rotation.z = -Math.PI / 2; // Rotate to lie on X
@@ -400,14 +438,12 @@
                 // Y-Axis Rotation
                 // Height = a - 2 (from y=2 to a)
                 // Radius at y=2 is x=1. Radius at y=a is x=12.
-                // Bottom (y=2) radius = 1. Top (y=a) radius = 12.
                 
                 const height = a - 2;
                 const centerY = 2 + height/2;
                 
                 geometry = new THREE.CylinderGeometry(12, 1, height, 32, 1, false);
                 frustumMesh = new THREE.Mesh(geometry, materialY);
-                // Cylinder is already Y-aligned.
                 frustumMesh.position.set(0, centerY, 0);
             }
 
@@ -442,9 +478,9 @@
             volDiffDisplay.textContent = diff.toFixed(3);
 
             if (Math.abs(diff - 50) < 5) {
-                volDiffDisplay.className = "font-mono font-bold text-green-600 text-xl";
+                volDiffDisplay.className = "font-mono font-bold text-green-400 text-xl";
             } else {
-                volDiffDisplay.className = "font-mono font-bold text-red-600";
+                volDiffDisplay.className = "font-mono font-bold text-red-400";
             }
         }
 

@@ -4,9 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quartic Function Problem Solution</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+    </script>
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -44,11 +55,6 @@
         canvas {
             max-height: 400px;
             margin: 20px 0;
-        }
-        code {
-            background: #eee;
-            padding: 2px 5px;
-            border-radius: 3px;
         }
     </style>
 </head>
@@ -146,7 +152,7 @@
                 borderColor: 'rgba(231, 76, 60, 1)',
                 backgroundColor: 'rgba(231, 76, 60, 0.5)',
                 type: 'scatter',
-                showLine: true, // Connect dots to show triangle approximation (conceptually)
+                showLine: true, // Connect dots to show triangle approximation
                 pointRadius: 5
             }]
         },

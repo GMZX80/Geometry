@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quartic Function Problem Solution</title>
+    <title>Quartic Function Solution - Explained</title>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -21,89 +21,131 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            line-height: 1.8;
             color: #333;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f9;
+            padding: 40px 20px;
+            background-color: #f8f9fa;
         }
-        h1, h2, h3 {
-            color: #2c3e50;
-        }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 40px; }
+        h2 { color: #34495e; border-bottom: 2px solid #bdc3c7; padding-bottom: 10px; margin-top: 40px; }
+        h3 { color: #2980b9; margin-top: 30px; }
+        
         .container {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
-        .step {
-            margin-bottom: 25px;
-            border-left: 4px solid #3498db;
-            padding-left: 15px;
-        }
-        .result-box {
-            background-color: #e8f6f3;
-            border: 2px solid #2ecc71;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        canvas {
-            max-height: 400px;
+        
+        /* Box styles for emphasizing concepts */
+        .concept-box {
+            background-color: #fff8e1;
+            border-left: 5px solid #f1c40f;
+            padding: 15px 20px;
             margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .math-step {
+            background-color: #f0f8ff;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .analogy {
+            font-style: italic;
+            color: #555;
+            background: #eee;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .result-box {
+            background-color: #2ecc71;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 40px;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        canvas {
+            max-height: 450px;
+            margin: 30px auto;
+            display: block;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Math Problem: Quartic Function & Triangle Area</h1>
+    <h1>The Mystery of the Quartic Curve</h1>
     
-    <p><strong>Problem:</strong> A quartic function has two minima at $(-a, 0)$ and $(a, 0)$. The turning points form an equilateral triangle. The area under the curve is 1 unit greater than the area of the triangle. Find $a$.</p>
+    <p><strong>The Goal:</strong> We need to find the value of $a$. We are given a W-shaped curve and an equilateral triangle hidden inside the turning points. We know the area under the curve is exactly 1 unit larger than the area of the triangle.</p>
 
-    <hr>
-
-    <h2>Visualizing the Solution</h2>
-    <p>The graph below visualizes the actual curve calculated from the solution. The shaded region represents the area under the curve.</p>
+    <h2>1. Visualizing the Problem</h2>
+    <p>This interactive graph shows the actual solution. The blue area is the integral, and the red dots are the "Tent" (the triangle).</p>
     <canvas id="myChart"></canvas>
 
-    <h2>Step-by-Step Derivation</h2>
+    <h2>2. Step-by-Step Solution</h2>
 
-    <div class="step">
-        <h3>1. Establish the Equation</h3>
-        <p>Since the curve touches the x-axis at $-a$ and $a$, these are repeated roots. The equation is:</p>
+    <div class="math-step">
+        <h3>Step 1: Finding the Equation (The "Bouncing Ball")</h3>
+        <p><span class="analogy">Analogy:</span> When a graph touches the x-axis and turns back around (like a ball bouncing), it creates a <strong>squared factor</strong> in the equation.</p>
+        <p>Because the curve "bounces" at $x = -a$ and $x = a$, our equation is:</p>
+        $$y = k(x + a)^2(x - a)^2$$
+        <p>We simplify this using the difference of two squares:</p>
         $$y = k(x^2 - a^2)^2$$
+        <p><em>Note: $k$ is the "stretch factor"—it decides how tall the curve is.</em></p>
     </div>
 
-    <div class="step">
-        <h3>2. Use Equilateral Triangle Properties</h3>
-        <p>The vertices are $(-a,0)$, $(a,0)$, and the maximum at $(0, ka^4)$.</p>
-        <p>Base length $= 2a$. Height of equilateral triangle $= 2a \times \frac{\sqrt{3}}{2} = a\sqrt{3}$.</p>
-        <p>Equating the function height to the triangle height:</p>
-        $$ka^4 = a\sqrt{3} \implies k = \frac{\sqrt{3}}{a^3}$$
+    <div class="math-step">
+        <h3>Step 2: Building the Tent (Geometry)</h3>
+        <p>The turning points form an <strong>Equilateral Triangle</strong>.</p>
+        <ul>
+            <li><strong>The Base:</strong> The distance from $-a$ to $a$ is $2a$.</li>
+            <li><strong>The Height:</strong> For an equilateral triangle with side $2a$, the height is $a\sqrt{3}$.</li>
+        </ul>
+        <div class="concept-box">
+            <strong>The Connection:</strong> The height of the triangle is the same as the height of the curve at $x=0$.
+            $$ \text{Height} = k(0^2 - a^2)^2 = ka^4 $$
+            So: $ka^4 = a\sqrt{3} \implies k = \frac{\sqrt{3}}{a^3}$
+        </div>
     </div>
 
-    <div class="step">
-        <h3>3. Calculate Areas</h3>
-        <p><strong>Triangle Area:</strong> $A_{tri} = \frac{1}{2}(2a)(a\sqrt{3}) = \sqrt{3}a^2$</p>
-        <p><strong>Curve Area:</strong> Integrating $\int_{-a}^{a} y dx$ yields $A_{curve} = \frac{16\sqrt{3}}{15}a^2$</p>
+    <div class="math-step">
+        <h3>Step 3: Calculating Areas (Calculus)</h3>
+        <p>Now we compare the sizes of the "Tent" (Triangle) and the "Hill" (Curve).</p>
+        
+        <p><strong>Area of Triangle:</strong></p>
+        $$A_{tri} = \frac{1}{2}(\text{base})(\text{height}) = \frac{1}{2}(2a)(a\sqrt{3}) = \sqrt{3}a^2$$
+
+        <p><strong>Area under Curve:</strong></p>
+        <p>We integrate the function from $-a$ to $a$. (Or 0 to $a$ and double it):</p>
+        $$A_{curve} = 2 \int_{0}^{a} k(x^2 - a^2)^2 \,dx = \frac{16k a^5}{15}$$
+        <p>Substitute our $k$ value from Step 2:</p>
+        $$A_{curve} = \frac{16}{15} \left( \frac{\sqrt{3}}{a^3} \right) a^5 = \frac{16\sqrt{3}}{15}a^2$$
     </div>
 
-    <div class="step">
-        <h3>4. Solve for $a$</h3>
-        <p>We are given $A_{curve} - A_{tri} = 1$:</p>
-        $$\frac{16\sqrt{3}}{15}a^2 - \sqrt{3}a^2 = 1$$
-        $$\frac{\sqrt{3}}{15}a^2 = 1 \implies a^2 = 5\sqrt{3}$$
-        $$a = \sqrt{5\sqrt{3}}$$
+    <div class="math-step">
+        <h3>Step 4: The Final Showdown</h3>
+        <p>The problem says the curve area is <strong>1 unit bigger</strong> than the triangle area.</p>
+        $$ A_{curve} - A_{tri} = 1 $$
+        $$ \frac{16\sqrt{3}}{15}a^2 - 1\sqrt{3}a^2 = 1 $$
+        <p>Think of $\sqrt{3}a^2$ as an object. We have $\frac{16}{15}$ of them minus $1$ (which is $\frac{15}{15}$). That leaves $\frac{1}{15}$.</p>
+        $$ \frac{1}{15}\sqrt{3}a^2 = 1 $$
+        $$ \sqrt{3}a^2 = 15 \implies a^2 = \frac{15}{\sqrt{3}} = 5\sqrt{3} $$
     </div>
 
     <div class="result-box">
-        Final Answer:<br>
-        a ≈ 2.943
+        Final Answer: a ≈ 2.943
     </div>
 </div>
 
@@ -134,47 +176,52 @@
         data: {
             labels: xValues,
             datasets: [{
-                label: 'Quartic Function',
+                label: 'Area Under Curve',
                 data: yValues,
                 borderColor: 'rgba(52, 152, 219, 1)',
                 backgroundColor: 'rgba(52, 152, 219, 0.2)',
                 borderWidth: 2,
                 fill: true,
-                pointRadius: 0
+                pointRadius: 0,
+                tension: 0.4
             },
             {
-                label: 'Triangle Vertices',
+                label: 'The "Tent" (Triangle)',
                 data: [
                     {x: -a, y: 0},
                     {x: 0, y: k * Math.pow(a, 4)}, 
                     {x: a, y: 0}
                 ],
                 borderColor: 'rgba(231, 76, 60, 1)',
-                backgroundColor: 'rgba(231, 76, 60, 0.5)',
+                backgroundColor: 'rgba(231, 76, 60, 0.3)',
                 type: 'scatter',
-                showLine: true, // Connect dots to show triangle approximation
-                pointRadius: 5
+                showLine: true, 
+                pointRadius: 6,
+                pointBackgroundColor: 'white',
+                borderDash: [5, 5]
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 x: {
                     type: 'linear',
                     position: 'bottom',
-                    title: { display: true, text: 'x' },
+                    title: { display: true, text: 'x axis' },
                     min: -3.5,
                     max: 3.5
                 },
                 y: {
-                    title: { display: true, text: 'y' },
+                    title: { display: true, text: 'y axis' },
                     min: 0
                 }
             },
             plugins: {
                 title: {
                     display: true,
-                    text: `Graph for a ≈ ${a.toFixed(3)}`
+                    text: `Visualizing the Solution (a ≈ ${a.toFixed(3)})`,
+                    font: { size: 18 }
                 },
                 tooltip: {
                     enabled: true

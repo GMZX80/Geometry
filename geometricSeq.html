@@ -260,10 +260,10 @@
 
         <h3>Final Calculation</h3>
         <div class="concept-box">
-            <strong>Sequence U:</strong> \( r = (5/6)^{1/6} \approx 0.97 \). Sum \(\approx 201.53\)<br>
+            <strong>Sequence U:</strong> \( r = (5/6)^{1/6} \approx 0.97 \). Sum \(\approx 200.47\)<br>
             <strong>Sequence V:</strong> \( r = (2/4)^{1/2} \approx 0.707 \). Sum \(\approx 13.66\)<br>
             <hr>
-            <strong>Difference \(D = 201.53 - 13.66 = 187.9\) (to 4 s.f.)</strong>
+            <strong>Difference \(D = 200.47 - 13.66 = 186.8\) (to 4 s.f.)</strong>
         </div>
     </div>
 
@@ -334,7 +334,7 @@
         msg += `<hr>`;
         msg += `<h3 style="color:var(--primary); text-align:center;">Difference D = ${diff.toPrecision(4)}</h3>`;
         
-        if (diff > 187 && diff < 188) {
+        if (diff > 186 && diff < 187) {
             msg += `<p style="text-align:center; color: green; font-weight:bold;">🎉 Outstanding! You found the maximum value.</p>`;
         } else if (diff > 100) {
             msg += `<p style="text-align:center; color: orange;">Good job! You're on the right track, but you can squeeze out a bigger difference.</p>`;

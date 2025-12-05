@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quartic Function Problem Solution</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        .result-box {
+            background-color: #e8f6f3;
+            border: 2px solid #2ecc71;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        canvas {
+            max-height: 400px;
+            margin: 20px 0;
+        }
+        code {
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Math Problem: Quartic Function & Triangle Area</h1>
+    
+    <p><strong>Problem:</strong> A quartic function has two minima at $(-a, 0)$ and $(a, 0)$. The turning points form an equilateral triangle. The area under the curve is 1 unit greater than the area of the triangle. Find $a$.</p>
+
+    <hr>
+
+    <h2>Visualizing the Solution</h2>
+    <p>The graph below visualizes the actual curve calculated from the solution. The shaded region represents the area under the curve.</p>
+    <canvas id="myChart"></canvas>
+
+    <h2>Step-by-Step Derivation</h2>
+
+    <div class="step">
+        <h3>1. Establish the Equation</h3>
+        <p>Since the curve touches the x-axis at $-a$ and $a$, these are repeated roots. The equation is:</p>
+        $$y = k(x^2 - a^2)^2$$
+    </div>
+
+    <div class="step">
+        <h3>2. Use Equilateral Triangle Properties</h3>
+        <p>The vertices are $(-a,0)$, $(a,0)$, and the maximum at $(0, ka^4)$.</p>
+        <p>Base length $= 2a$. Height of equilateral triangle $= 2a \times \frac{\sqrt{3}}{2} = a\sqrt{3}$.</p>
+        <p>Equating the function height to the triangle height:</p>
+        $$ka^4 = a\sqrt{3} \implies k = \frac{\sqrt{3}}{a^3}$$
+    </div>
+
+    <div class="step">
+        <h3>3. Calculate Areas</h3>
+        <p><strong>Triangle Area:</strong> $A_{tri} = \frac{1}{2}(2a)(a\sqrt{3}) = \sqrt{3}a^2$</p>
+        <p><strong>Curve Area:</strong> Integrating $\int_{-a}^{a} y dx$ yields $A_{curve} = \frac{16\sqrt{3}}{15}a^2$</p>
+    </div>
+
+    <div class="step">
+        <h3>4. Solve for $a$</h3>
+        <p>We are given $A_{curve} - A_{tri} = 1$:</p>
+        $$\frac{16\sqrt{3}}{15}a^2 - \sqrt{3}a^2 = 1$$
+        $$\frac{\sqrt{3}}{15}a^2 = 1 \implies a^2 = 5\sqrt{3}$$
+        $$a = \sqrt{5\sqrt{3}}$$
+    </div>
+
+    <div class="result-box">
+        Final Answer:<br>
+        a ≈ 2.943
+    </div>
+</div>
+
+<script>
+    // Constants calculated from the math
+    const a = Math.sqrt(5 * Math.sqrt(3));
+    const k = Math.sqrt(3) / Math.pow(a, 3);
+    
+    // Generate data points for the chart
+    const xValues = [];
+    const yValues = [];
+    
+    // We plot from -a to a, adding a bit of margin
+    const range = a * 1.2;
+    const step = range / 100;
+
+    for (let x = -range; x <= range; x += step) {
+        xValues.push(x.toFixed(2));
+        // Calculate y = k(x^2 - a^2)^2
+        let y = k * Math.pow((x*x - a*a), 2);
+        yValues.push(y);
+    }
+
+    // Chart.js Configuration
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: xValues,
+            datasets: [{
+                label: 'Quartic Function',
+                data: yValues,
+                borderColor: 'rgba(52, 152, 219, 1)',
+                backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                borderWidth: 2,
+                fill: true,
+                pointRadius: 0
+            },
+            {
+                label: 'Triangle Vertices',
+                data: [
+                    {x: -a, y: 0},
+                    {x: 0, y: k * Math.pow(a, 4)}, 
+                    {x: a, y: 0}
+                ],
+                borderColor: 'rgba(231, 76, 60, 1)',
+                backgroundColor: 'rgba(231, 76, 60, 0.5)',
+                type: 'scatter',
+                showLine: true, // Connect dots to show triangle approximation (conceptually)
+                pointRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: { display: true, text: 'x' },
+                    min: -3.5,
+                    max: 3.5
+                },
+                y: {
+                    title: { display: true, text: 'y' },
+                    min: 0
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Graph for a ≈ ${a.toFixed(3)}`
+                },
+                tooltip: {
+                    enabled: true
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

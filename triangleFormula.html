@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deriving the Inradius Formula</title>
+
+    <!-- MathJax for nice maths rendering -->
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        h1, h2, h3 {
+            margin-top: 1.4em;
+        }
+        .box {
+            border-left: 4px solid #2563eb;
+            padding-left: 0.75rem;
+            margin: 1rem 0;
+            background: #f8fafc;
+        }
+        code {
+            background: #eef2ff;
+            padding: 0 0.2rem;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Deriving the Inradius Formula for the Red Triangle</h1>
+
+<p>We want to show that for an isosceles triangle with</p>
+<ul>
+    <li>apex angle \(A\),</li>
+    <li>area \(\mathcal A\),</li>
+    <li>inradius \(r_1\),</li>
+</ul>
+
+<p>we have</p>
+
+<div class="box">
+    \[
+    r_1^2 = \frac{\mathcal A \,\sin A}{2\left(1 + \sin\frac{A}{2}\right)^2}.
+    \]
+</div>
+
+<p>Only at the very end will we use the special condition of the question,
+\(\mathcal A = A\).</p>
+
+<hr>
+
+<h2>1. Set up the triangle</h2>
+
+<p>Consider an isosceles triangle with</p>
+<ul>
+    <li>two equal sides of length \(b\),</li>
+    <li>apex angle \(A\) between those two sides,</li>
+    <li>base of length \(c\).</li>
+</ul>
+
+<p>So the two equal sides meet at the top, forming the angle \(A\), and the side
+at the bottom is the base \(c\).</p>
+
+<hr>
+
+<h2>2. Area in terms of \(b\) and \(A\)</h2>
+
+<p>For any triangle with sides \(a, b\) and included angle \(C\), the area is</p>
+
+\[
+\text{Area} = \frac12 ab \sin C.
+\]
+
+<p>Here both sides are \(b\) and the included angle is \(A\), so</p>
+
+\[
+\mathcal A = \frac12 b \cdot b \sin A
+           = \frac12 b^2 \sin A.
+\]
+
+<p>Rearrange to express \(b^2\) in terms of \(\mathcal A\) and \(A\):</p>
+
+<div class="box">
+    \[
+    b^2 = \frac{2\mathcal A}{\sin A}.
+    \]
+</div>
+
+<hr>
+
+<h2>3. Base length and semiperimeter</h2>
+
+<p>Drop a perpendicular from the apex to the base. In an isosceles triangle, this:</p>
+<ul>
+    <li>bisects the base,</li>
+    <li>bisects the apex angle \(A\) into two angles of \(A/2\).</li>
+</ul>
+
+<p>This gives two congruent right-angled triangles. In one of them:</p>
+<ul>
+    <li>the hypotenuse is \(b\),</li>
+    <li>the angle at the apex is \(A/2\),</li>
+    <li>half of the base is the opposite side: \(b \sin\left(\dfrac{A}{2}\right)\).</li>
+</ul>
+
+<p>So the full base length is</p>
+
+\[
+c = 2b \sin\frac{A}{2}.
+\]
+
+<p>The perimeter is \(2b + c\), so the semiperimeter \(s\) is</p>
+
+\[
+s = \frac{2b + c}{2}
+  = \frac{2b + 2b\sin\frac{A}{2}}{2}
+  = b + b\sin\frac{A}{2}
+  = b\left(1 + \sin\frac{A}{2}\right).
+\]
+
+<hr>
+
+<h2>4. Use the inradius formula \(r = \dfrac{\text{Area}}{s}\)</h2>
+
+<p>For any triangle, the inradius \(r\) satisfies</p>
+
+\[
+r = \frac{\text{Area}}{s},
+\]
+
+<p>where \(s\) is the semiperimeter. So here</p>
+
+\[
+r_1 = \frac{\mathcal A}{s}
+    = \frac{\mathcal A}{\,b\left(1 + \sin\frac{A}{2}\right)}.
+\]
+
+<p>Now square both sides:</p>
+
+\[
+r_1^2 = \frac{\mathcal A^2}{\,b^2\left(1 + \sin\frac{A}{2}\right)^2}.
+\]
+
+<p>Substitute the expression for \(b^2\) from step 2:</p>
+
+\[
+b^2 = \frac{2\mathcal A}{\sin A}.
+\]
+
+<p>Then</p>
+
+\[
+r_1^2
+= \frac{\mathcal A^2}
+       {\left(\frac{2\mathcal A}{\sin A}\right)
+        \left(1 + \sin\frac{A}{2}\right)^2}.
+\]
+
+<p>Rewrite this as a product to simplify:</p>
+
+\[
+r_1^2
+= \mathcal A^2 \cdot
+  \frac{\sin A}{2\mathcal A} \cdot
+  \frac{1}{\left(1 + \sin\frac{A}{2}\right)^2}.
+\]
+
+<p>Cancel one \(\mathcal A\):</p>
+
+<div class="box">
+    \[
+    r_1^2
+    = \frac{\mathcal A \sin A}
+           {2\left(1 + \sin\frac{A}{2}\right)^2}.
+    \]
+</div>
+
+<p>This is the general formula they quote.</p>
+
+<hr>
+
+<h2>5. Apply the special condition \(\mathcal A = A\)</h2>
+
+<p>In the specific contest problem, the triangle is chosen so that its area is
+numerically equal to the angle \(A\):</p>
+
+\[
+\mathcal A = A.
+\]
+
+<p>So we simply replace \(\mathcal A\) with \(A\) in the formula:</p>
+
+<div class="box">
+    \[
+    r_1^2
+    = \frac{A \sin A}
+           {2\left(1 + \sin\frac{A}{2}\right)^2}.
+    \]
+</div>
+
+<p>This is exactly the expression shown in your screenshot.</p>
+
+</body>
+</html>

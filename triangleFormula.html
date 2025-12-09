@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Deriving the Inradius Formula</title>
+    <title>Step-by-Step Derivation of the Inradius Formula</title>
 
-    <!-- MathJax for nice maths rendering -->
+    <!-- MathJax for maths rendering -->
     <script id="MathJax-script" async
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
@@ -26,67 +26,98 @@
             margin: 1rem 0;
             background: #f8fafc;
         }
-        code {
-            background: #eef2ff;
-            padding: 0 0.2rem;
-            border-radius: 3px;
+        ol li {
+            margin: 0.4rem 0;
         }
     </style>
 </head>
 <body>
 
-<h1>Deriving the Inradius Formula for the Red Triangle</h1>
+<h1>Deriving the Inradius of an Isosceles Triangle (Red Triangle)</h1>
 
-<p>We want to show that for an isosceles triangle with</p>
+<p>
+We are going to find a formula for the inradius of an isosceles triangle where:
+</p>
+
 <ul>
-    <li>apex angle \(A\),</li>
-    <li>area \(\mathcal A\),</li>
-    <li>inradius \(r_1\),</li>
+    <li>the two equal sides meet at the top with angle \(A\) (the <em>apex angle</em>),</li>
+    <li>the base is at the bottom,</li>
+    <li>the area of the triangle is \(\mathcal A\).</li>
 </ul>
 
-<p>we have</p>
+<p>
+We will build this formula from scratch, using only:
+</p>
+
+<ul>
+    <li>the area formula \(\text{Area} = \frac12 ab \sin C\), and</li>
+    <li>the inradius relation \(r = \dfrac{\text{Area}}{s}\), where \(s\) is the semiperimeter.</li>
+</ul>
+
+<p>
+Think of this as a small “story”: we start from side lengths and angles, slowly link them
+to the perimeter and area, and finally reach the inradius.
+</p>
+
+<hr>
+
+<h2>Step 1 – Name the sides and the angle</h2>
+
+<p>
+Take an isosceles triangle and give names to the important parts:
+</p>
+
+<ul>
+    <li>Let each of the two equal sides have length \(b\).</li>
+    <li>Let the base (the bottom side) have length \(c\).</li>
+    <li>The angle between the two equal sides at the top is the apex angle \(A\).</li>
+</ul>
+
+<p>
+So the picture in your head is:
+two equal sides \(b\) forming an angle \(A\) at the top, and a base \(c\) along the bottom.
+</p>
+
+<hr>
+
+<h2>Step 2 – Express the area in terms of \(b\) and \(A\)</h2>
+
+<p>
+We now use the standard formula for the area of a triangle when we know two sides
+and the angle between them:
+</p>
 
 <div class="box">
     \[
-    r_1^2 = \frac{\mathcal A \,\sin A}{2\left(1 + \sin\frac{A}{2}\right)^2}.
+    \text{Area} = \frac12 ab \sin C.
     \]
 </div>
 
-<p>Only at the very end will we use the special condition of the question,
-\(\mathcal A = A\).</p>
+<p>
+In our triangle:
+</p>
 
-<hr>
-
-<h2>1. Set up the triangle</h2>
-
-<p>Consider an isosceles triangle with</p>
 <ul>
-    <li>two equal sides of length \(b\),</li>
-    <li>apex angle \(A\) between those two sides,</li>
-    <li>base of length \(c\).</li>
+    <li>both sides are \(b\),</li>
+    <li>the included angle is \(A\).</li>
 </ul>
 
-<p>So the two equal sides meet at the top, forming the angle \(A\), and the side
-at the bottom is the base \(c\).</p>
+<p>
+So the area \(\mathcal A\) of this triangle is
+</p>
 
-<hr>
+<div class="box">
+    \[
+    \mathcal A
+      = \frac12 b \cdot b \sin A
+      = \frac12 b^2 \sin A.
+    \]
+</div>
 
-<h2>2. Area in terms of \(b\) and \(A\)</h2>
-
-<p>For any triangle with sides \(a, b\) and included angle \(C\), the area is</p>
-
-\[
-\text{Area} = \frac12 ab \sin C.
-\]
-
-<p>Here both sides are \(b\) and the included angle is \(A\), so</p>
-
-\[
-\mathcal A = \frac12 b \cdot b \sin A
-           = \frac12 b^2 \sin A.
-\]
-
-<p>Rearrange to express \(b^2\) in terms of \(\mathcal A\) and \(A\):</p>
+<p>
+This equation links the side length \(b\) to the area and angle. Rearranging it,
+we can write \(b^2\) in terms of \(\mathcal A\) and \(A\):
+</p>
 
 <div class="box">
     \[
@@ -94,68 +125,147 @@ at the bottom is the base \(c\).</p>
     \]
 </div>
 
+<p>
+We will substitute this later so that \(b\) disappears from our final formula.
+</p>
+
 <hr>
 
-<h2>3. Base length and semiperimeter</h2>
+<h2>Step 3 – Relate the base and semiperimeter to \(b\) and \(A\)</h2>
 
-<p>Drop a perpendicular from the apex to the base. In an isosceles triangle, this:</p>
-<ul>
-    <li>bisects the base,</li>
-    <li>bisects the apex angle \(A\) into two angles of \(A/2\).</li>
-</ul>
+<p>
+Next we need the semiperimeter \(s\), because the inradius is \(r = \dfrac{\text{Area}}{s}\).
+To find \(s\), we first need the base length \(c\).
+</p>
 
-<p>This gives two congruent right-angled triangles. In one of them:</p>
+<h3>3a. Find the base using a right triangle</h3>
+
+<p>
+Drop a perpendicular from the apex down to the base. In an isosceles triangle this
+perpendicular does two helpful things:
+</p>
+
+<ol>
+    <li>It <strong>bisects the base</strong>, so each half is \(c/2\).</li>
+    <li>It <strong>bisects the apex angle</strong>, so each of the two top angles becomes \(A/2\).</li>
+</ol>
+
+<p>
+Now focus on one of the right-angled triangles created. In that triangle:
+</p>
+
 <ul>
     <li>the hypotenuse is \(b\),</li>
-    <li>the angle at the apex is \(A/2\),</li>
-    <li>half of the base is the opposite side: \(b \sin\left(\dfrac{A}{2}\right)\).</li>
+    <li>the angle at the top is \(A/2\),</li>
+    <li>the side opposite this angle is \(c/2\).</li>
 </ul>
 
-<p>So the full base length is</p>
+<p>
+Using \(\sin(\theta) = \dfrac{\text{opposite}}{\text{hypotenuse}}\), we get
+</p>
 
 \[
-c = 2b \sin\frac{A}{2}.
+\sin\frac{A}{2} = \frac{c/2}{b}.
 \]
 
-<p>The perimeter is \(2b + c\), so the semiperimeter \(s\) is</p>
+<p>
+Rearrange to make \(c\) the subject:
+</p>
+
+<div class="box">
+    \[
+    c = 2b\sin\frac{A}{2}.
+    \]
+</div>
+
+<h3>3b. Find the semiperimeter \(s\)</h3>
+
+<p>
+The full perimeter \(P\) of the triangle is
+</p>
 
 \[
-s = \frac{2b + c}{2}
-  = \frac{2b + 2b\sin\frac{A}{2}}{2}
-  = b + b\sin\frac{A}{2}
-  = b\left(1 + \sin\frac{A}{2}\right).
+P = b + b + c = 2b + c.
 \]
+
+<p>
+Substituting our expression for \(c\),
+</p>
+
+\[
+P = 2b + 2b\sin\frac{A}{2}
+  = 2b\left(1 + \sin\frac{A}{2}\right).
+\]
+
+<p>
+The semiperimeter \(s\) is half the perimeter:
+</p>
+
+<div class="box">
+    \[
+    s = \frac{P}{2}
+      = b\left(1 + \sin\frac{A}{2}\right).
+    \]
+</div>
+
+<p>
+Now we have \(s\) expressed neatly in terms of \(b\) and \(A\).
+</p>
 
 <hr>
 
-<h2>4. Use the inradius formula \(r = \dfrac{\text{Area}}{s}\)</h2>
+<h2>Step 4 – Use the inradius formula</h2>
 
-<p>For any triangle, the inradius \(r\) satisfies</p>
+<p>
+For any triangle, the inradius \(r\) (radius of the incircle) is given by
+</p>
 
-\[
-r = \frac{\text{Area}}{s},
-\]
+<div class="box">
+    \[
+    r = \frac{\text{Area}}{s},
+    \]
+</div>
 
-<p>where \(s\) is the semiperimeter. So here</p>
+<p>
+where \(s\) is the semiperimeter. In our triangle,
+</p>
 
 \[
 r_1 = \frac{\mathcal A}{s}
     = \frac{\mathcal A}{\,b\left(1 + \sin\frac{A}{2}\right)}.
 \]
 
-<p>Now square both sides:</p>
+<p>
+We now square both sides to get an expression for \(r_1^2\):
+</p>
 
-\[
-r_1^2 = \frac{\mathcal A^2}{\,b^2\left(1 + \sin\frac{A}{2}\right)^2}.
-\]
+<div class="box">
+    \[
+    r_1^2
+      = \frac{\mathcal A^2}{\,b^2\left(1 + \sin\frac{A}{2}\right)^2}.
+    \]
+</div>
 
-<p>Substitute the expression for \(b^2\) from step 2:</p>
+<p>
+This formula almost does what we want, but it still contains \(b^2\). We will now
+remove \(b^2\) using the area relation from Step&nbsp;2.
+</p>
+
+<hr>
+
+<h2>Step 5 – Eliminate \(b\) using the area expression</h2>
+
+<p>
+From Step&nbsp;2 we had
+</p>
 
 \[
 b^2 = \frac{2\mathcal A}{\sin A}.
 \]
 
-<p>Then</p>
+<p>
+Substitute this into the expression for \(r_1^2\):
+</p>
 
 \[
 r_1^2
@@ -164,7 +274,9 @@ r_1^2
         \left(1 + \sin\frac{A}{2}\right)^2}.
 \]
 
-<p>Rewrite this as a product to simplify:</p>
+<p>
+It can be easier to see what’s happening if we treat it as a product:
+</p>
 
 \[
 r_1^2
@@ -173,7 +285,9 @@ r_1^2
   \frac{1}{\left(1 + \sin\frac{A}{2}\right)^2}.
 \]
 
-<p>Cancel one \(\mathcal A\):</p>
+<p>
+Now one factor of \(\mathcal A\) cancels:
+</p>
 
 <div class="box">
     \[
@@ -183,20 +297,27 @@ r_1^2
     \]
 </div>
 
-<p>This is the general formula they quote.</p>
+<p>
+This is the general formula for the square of the inradius of our isosceles triangle
+in terms of its area \(\mathcal A\) and apex angle \(A\).
+</p>
 
 <hr>
 
-<h2>5. Apply the special condition \(\mathcal A = A\)</h2>
+<h2>Step 6 – (Specific problem) Replace \(\mathcal A\) by \(A\)</h2>
 
-<p>In the specific contest problem, the triangle is chosen so that its area is
-numerically equal to the angle \(A\):</p>
+<p>
+In the original competition question, the triangle was chosen so that its area is
+numerically equal to the angle \(A\) (in square units versus degrees). That is,
+</p>
 
 \[
 \mathcal A = A.
 \]
 
-<p>So we simply replace \(\mathcal A\) with \(A\) in the formula:</p>
+<p>
+If we now make that substitution, we get the special-case formula used in the solution:
+</p>
 
 <div class="box">
     \[
@@ -206,7 +327,11 @@ numerically equal to the angle \(A\):</p>
     \]
 </div>
 
-<p>This is exactly the expression shown in your screenshot.</p>
+<p>
+But the important part of this page is the journey: starting from side lengths,
+finding area and semiperimeter, using the inradius formula, and carefully
+eliminating \(b\) step by step until only \(A\) and \(\mathcal A\) remain.
+</p>
 
 </body>
 </html>
